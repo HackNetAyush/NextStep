@@ -4,6 +4,8 @@ NextStep is a platform for helping students figure out the next steps in their e
 
 # Usage
 
-cd Frontend
-npm install
-npm run dev
+cd Frontend; 
+
+npm install;
+
+npm run dev;
