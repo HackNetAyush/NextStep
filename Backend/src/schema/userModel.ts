@@ -13,6 +13,7 @@ const userSchema: Schema = new Schema({
   description: { type: String, required: false, unique: false },
   track: { type: String, required: false, unique: false },
   communities: { type: Array<String>, required: false, unique: false },
+  status: { type: String, required: true, unique: false },
 });
 
 export const UserModel = mongoose.model("User", userSchema);

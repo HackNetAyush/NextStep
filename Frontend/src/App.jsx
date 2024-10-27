@@ -86,7 +86,7 @@ function App() {
       ),
     },
     {
-      path: "/newAccount",
+      path: "/signup",
       element: <NewAccount />,
     },
     {

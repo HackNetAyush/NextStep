@@ -5,15 +5,20 @@ import { Input } from "@nextui-org/react";
 import { Card, CardHeader, CardBody } from "@nextui-org/react";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { Textarea } from "@nextui-org/react";
+import axios from "axios";
+import jwt from "jsonwebtoken";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Onboarding() {
   const [currentSection, setCurrentSection] = useState(0);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    age: "",
-    gender: "",
-    location: "",
-    bio: "",
-    proud: "",
+    age: null,
+    gender: null,
+    location: null,
+    bio: null,
+    proudmoment: null,
   });
 
   const sections = [
@@ -73,10 +78,26 @@ export default function Onboarding() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Here you would typically send the data to your backend
+    const token = await localStorage.getItem("token");
+    const decode = await jwt.decode(token);
+    formData.email = decode.email;
+    const res = await axios.put(
+      "http://localhost:3000/api/v1/welcome",
+      formData
+    );
+    if (res.data.msg == "Invalid Inputs") {
+      toast.error("Invalid Inputs");
+    }
+    if (res.data.msg == "user updated") {
+      toast.success("user created");
+      navigate("/");
+    }
+    if (res.data.msg == "error") {
+      toast.error("some error occured");
+      console.log(res.data.error);
+    }
   };
 
   const genders = [
@@ -113,7 +134,6 @@ export default function Onboarding() {
                       placeholder={`Enter your ${field.name}`}
                       value={formData[field.name]}
                       onChange={handleInputChange}
-                      isRequired
                     />
                   )}
 
@@ -126,7 +146,6 @@ export default function Onboarding() {
                       placeholder={`Enter your ${field.name}`}
                       value={formData[field.name]}
                       onChange={handleInputChange}
-                      isRequired
                     />
                   )}
                 </div>
@@ -149,7 +168,7 @@ export default function Onboarding() {
                   Back
                 </Button>
                 {currentSection === sections.length - 1 ? (
-                  <Button color="primary" type="submit">
+                  <Button color="primary" onClick={handleSubmit}>
                     Submit
                   </Button>
                 ) : (
@@ -162,6 +181,7 @@ export default function Onboarding() {
           </form>
         </CardBody>
       </Card>
+      <Toaster />
     </div>
   );
 }
