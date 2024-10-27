@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Progress } from "@nextui-org/progress";
 import { Button, Badge, Chip } from "@nextui-org/react";
+import { checker } from "./../assets/checker";
 import {
   Bell,
   BookOpen,
@@ -12,13 +13,19 @@ import {
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/avatar";
 
 const Dashboardd = () => {
-  const progress = 80;
+  const progress = 0;
+  // useEffect(() => {
+  //   checker();
+  // }, []);
+
+  const [name, Setname] = useState(" ");
+
   return (
     <div className="main h-full w-full flex flex-col items-center justify-center">
       <main className="flex  flex-col overflow-x-hidden overflow-y-auto p-5">
         {/* Welcome Section */}
         <section className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Welcome back, Alex!</h2>
+          <h2 className="text-3xl font-bold mb-2">Welcome back, {name}!</h2>
           <p className="text-gray-600">
             You're a creative problem-solver with strong analytical skills. Your
             passion for technology and design makes you an excellent candidate

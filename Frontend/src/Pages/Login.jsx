@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   const gotoSignup = () => {
-    navigate("/newAccount"); // -1 will navigate to the previous page in the history stack
+    navigate("/signup"); // -1 will navigate to the previous page in the history stack
   };
 
   const userContext = useContext(UserContext);
@@ -33,39 +33,35 @@ const Login = () => {
   //   console.log("Login");
   // };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    toast.dismiss();
     setLoginbtnState(0);
-    toast
-      .promise(
-        axios.post(
-          `${serverUrl}/api/auth/login`,
-          {
-            usernameOrEmail: usernameOrEmail.toLowerCase(),
-            password,
-          },
-          {
-            withCredentials: true, // Include credentials (cookies)
-          }
-        ),
-        {
-          loading: "Processing...",
-          success: <b>Logged In!</b>,
-          error: <b>Failed logging in.</b>,
-        }
-      )
-      .then((response) => {
-        // Redirect to login page or any other page after successful signup
-        userContext.setUser(response.data.user);
-        console.log("Login ho gya bhai!");
-        console.log(response.data.user);
-        console.log("Ab navigate krde");
-        navigate("/");
-        console.log("After navigation");
-      })
-      .catch((e) => {
-        console.log(e);
-        setLoginbtnState(1);
-      });
+    const res = await axios.post(`${serverUrl}/api/v1/auth/login`, {
+      email: usernameOrEmail,
+      password: password,
+    });
+    setLoginbtnState(1);
+    console.log(res);
+
+    const data = res.data;
+    if (data.msg == "Invalid Inputs") {
+      toast.error("Invalid Inputs");
+    }
+    if (data.msg == "no user found") {
+      toast.error("no user found");
+    }
+    if (data.msg == "Invalid password") {
+      toast.error("Invalid password");
+    }
+    if (data.msg == "user signed in") {
+      toast.success("user logged in");
+      localStorage.setItem("token", data.jwt);
+      navigate("/");
+    }
+    if (data.msg == "error") {
+      toast.error("some error occured");
+      console.log(data.error);
+    }
   };
 
   return (
@@ -127,6 +123,7 @@ const Login = () => {
           Create new account
         </Button>
       </div>
+      <Toaster />
     </div>
   );
 };

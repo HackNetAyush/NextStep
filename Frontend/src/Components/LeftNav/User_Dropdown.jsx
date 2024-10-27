@@ -7,8 +7,11 @@ import {
   Avatar,
   User,
 } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 
-const User_Dropdown = () => {
+const User_Dropdown = ({ name }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex items-center gap-4  w-full rounded-md h-fit border-default-200 dark:border-default-100 border-small">
       <Dropdown className="w-full h-full" placement="bottom-start">
@@ -20,14 +23,13 @@ const User_Dropdown = () => {
               src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
             }}
             className="transition-transform w-full h-full p-3 flex items-center justify-start"
-            description="@tonyreichert"
-            name="Tony Reichert"
+            name={name}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
-            <p className="font-bold">@tonyreichert</p>
+            <p className="font-bold">{name}</p>
           </DropdownItem>
           <DropdownItem key="settings">My Settings</DropdownItem>
           <DropdownItem key="team_settings">Team Settings</DropdownItem>
@@ -35,7 +37,14 @@ const User_Dropdown = () => {
           <DropdownItem key="system">System</DropdownItem>
           <DropdownItem key="configurations">Configurations</DropdownItem>
           <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-          <DropdownItem key="logout" color="danger">
+          <DropdownItem
+            key="logout"
+            onClick={() => {
+              localStorage.clear();
+              navigate("/signup");
+            }}
+            color="danger"
+          >
             Log Out
           </DropdownItem>
         </DropdownMenu>

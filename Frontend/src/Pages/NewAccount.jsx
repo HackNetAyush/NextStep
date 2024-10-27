@@ -32,40 +32,33 @@ const NewAccount = () => {
 
   //   const userContext = useContext(UserContext);
 
-  function handleSignup() {
-    console.log("Hola");
-
+  async function handleSignup() {
+    toast.dismiss();
     setLoginbtnState(0);
 
-    toast
-      .promise(
-        axios.post(
-          `${serverUrl}/api/v1/auth/signup`,
-          {
-            name: name,
-            email,
-            password,
-          },
-          {
-            withCredentials: true, // Include credentials (cookies)
-          }
-        ),
-        {
-          loading: "Processing...",
-          success: <b>Account created successfully!</b>,
-          error: <b>Failed to create account. Please try again.</b>,
-        }
-      )
-      .then((response) => {
-        // Redirect to login page or any other page after successful signup
-        // userContext.setUser(response.data.user);
-        console.log(response.data.user);
-        navigate("/");
-      })
-      .catch((e) => {
-        console.log(e);
-        setLoginbtnState(1);
-      });
+    const res = await axios.post(`${serverUrl}/api/v1/auth/signup`, {
+      name: name,
+      email: email,
+      password: password,
+    });
+    setLoginbtnState(1);
+    const data = await res.data;
+    if (data.msg == "Invalid Inputs") {
+      toast.error("invalid inputs");
+    }
+    if (data.msg == "user already exists") {
+      if (data.msg == "user already exists") toast.error("user already exists");
+    }
+    if (data.msg == "user created") {
+      toast.success("user created");
+      localStorage.setItem("token", data.jwt);
+      navigate("/");
+    }
+    if (data.msg == "error") {
+      toast.error("some error occured");
+      console.log(data.error);
+    }
+
   }
 
   return (

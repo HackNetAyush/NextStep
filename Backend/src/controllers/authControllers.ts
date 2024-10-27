@@ -25,7 +25,10 @@ export const login = async (req: Request, res: Response) => {
         });
       }
       if (body.password == user.password) {
-        const token = jwt.sign({ email: user.email, id: user.id }, jwtsecret);
+        const token = jwt.sign(
+          { email: user.email, id: user.id, status: user.status },
+          jwtsecret
+        );
         res.json({
           msg: "user signed in",
           jwt: token,
@@ -39,7 +42,8 @@ export const login = async (req: Request, res: Response) => {
     }
   } catch (e) {
     res.json({
-      msg: e,
+      msg: "error",
+      error: e,
     });
   }
 };
@@ -63,9 +67,10 @@ export const signup = async (req: Request, res: Response) => {
         name: body.name,
         email: body.email,
         password: body.password,
+        status: "false",
       });
       const token = await jwt.sign(
-        { email: data.email, id: data.id },
+        { email: data.email, id: data.id, status: data.status },
         "jwtsecret"
       );
       return res.json({
@@ -76,7 +81,8 @@ export const signup = async (req: Request, res: Response) => {
     }
   } catch (e) {
     res.json({
-      msg: e,
+      msg: "error",
+      error: e,
     });
   }
 };
