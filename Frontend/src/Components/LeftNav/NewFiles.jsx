@@ -38,7 +38,7 @@ const Files = () => {
 
   const items = [
     { key: "home", label: "Home", icon: <Home className={iconClasses} /> },
-    { key: "nextai", label: "Jot AI", icon: <Bot className={iconClasses} /> },
+    { key: "nextai", label: "NextAI", icon: <Bot className={iconClasses} /> },
     {
       key: "communities",
       label: "Communities",

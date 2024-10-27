@@ -13,11 +13,11 @@ import axios from "axios";
 
 const NewAccount = () => {
   const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginbtnState, setLoginbtnState] = useState(1);
-  const serverUrl = "http://localhost:3000";
+  const serverUrl = "https://nqnj938h-3000.inc1.devtunnels.ms";
 
   //   const dmc = useContext(DarkModeContext);
   //   var isDarkMode = dmc.DarkMode;
@@ -43,7 +43,7 @@ const NewAccount = () => {
           `${serverUrl}/api/auth/createNewUser`,
           {
             name: name,
-            username: username.toLowerCase(),
+
             email,
             password,
           },
@@ -89,7 +89,7 @@ const NewAccount = () => {
         </div>
       </div>
 
-      <div className="form_container flex items-center justify-center flex-col gap-2 w-[80%] h-full">
+      <div className="form_container flex items-center justify-center flex-col gap-2 max-w-[400px] w-[80%] h-full">
         <h1 className="text-2xl font-bold p-5">Create New Account</h1>
         <Input
           className="w-full"
@@ -98,13 +98,13 @@ const NewAccount = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <Input
+        {/* <Input
           className="w-full"
           type="text"
           label="Username (Unique)"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        />
+        /> */}
         <Input
           className="w-full"
           type="email"

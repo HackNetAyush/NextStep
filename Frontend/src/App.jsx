@@ -18,6 +18,7 @@ import Login from "./Pages/Login";
 import NewAccount from "./Pages/NewAccount";
 import NextAI from "./Pages/NextAI";
 import { UserContext } from "./Contexts/UserContext";
+import Onboarding from "./Pages/Onboarding";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = React.useContext(UserContext);
@@ -32,13 +33,21 @@ function RestrictedForLoggedInUsers({ children }) {
   return user ? <Navigate to="/" /> : children;
 }
 
+function OnBoardCheck({ children }) {
+  const { user, loading } = React.useContext(UserContext);
+  if (loading) return <div>Loading...</div>;
+  return user.OnBoardCheck ? children : <Navigate to="/onboarding" />;
+}
+
 function App() {
   const routes = [
     {
       path: "/",
       element: (
         // <ProtectedRoute>
+        // <OnBoardCheck>
         <MainAppLayout />
+        // </OnBoardCheck>
         // </ProtectedRoute>
       ),
       children: [
@@ -71,14 +80,18 @@ function App() {
     {
       path: "/login",
       element: (
-        <RestrictedForLoggedInUsers>
-          <Login />
-        </RestrictedForLoggedInUsers>
+        // <RestrictedForLoggedInUsers>
+        <Login />
+        // </RestrictedForLoggedInUsers>
       ),
     },
     {
       path: "/newAccount",
       element: <NewAccount />,
+    },
+    {
+      path: "/onboarding",
+      element: <Onboarding />,
     },
   ];
 
