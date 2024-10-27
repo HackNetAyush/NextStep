@@ -7,8 +7,9 @@ export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const serverUrl = "http://localhost:3000";
+  // const serverUrl = "https://nqnj938h-3000.inc1.devtunnels.ms";
   //   const serverUrl = "https://vibe-backend-7grj.onrender.com";
+  const serverUrl = "https://gg.cc";
 
   const isInitialRender = useRef(true);
   useEffect(() => {
@@ -17,7 +18,7 @@ export const UserContextProvider = ({ children }) => {
 
       axios
         .post(
-          `${serverUrl}/api/auth/checkAuth`,
+          `${serverUrl}/api/v1/auth/check`,
           {},
           {
             withCredentials: true,
