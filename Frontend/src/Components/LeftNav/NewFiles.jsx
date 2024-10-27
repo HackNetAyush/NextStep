@@ -45,8 +45,8 @@ const Files = () => {
       icon: <FilesIcon className={iconClasses} />,
     },
     {
-      key: "newJot",
-      label: "New Jot",
+      key: "pricing",
+      label: "Pricing",
       icon: <PlusCircle className={iconClasses} />,
     },
     {
