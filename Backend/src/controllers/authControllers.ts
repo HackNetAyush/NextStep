@@ -2,8 +2,12 @@ import { Request, Response } from "express";
 import { signinInput, signupInput } from "../types/usertypes";
 import { UserModel } from "../schema/userModel";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const jwtsecret: string = process.env.JWT_SECRET || " ";
+console.log(jwtsecret);
 
 export const login = async (req: Request, res: Response) => {
   const body = await req.body;
