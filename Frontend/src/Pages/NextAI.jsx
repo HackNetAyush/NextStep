@@ -36,8 +36,7 @@ const NextAI = () => {
           },
           body: JSON.stringify({
             q: inputValue,
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6I…DkyfQ.JTKAAvb744sTOChEqFLbqHp3LpXMjwqosYNcZwR8St4",
+            token: localStorage.getItem("token"),
           }), // Adjust based on your API requirements
         });
 
