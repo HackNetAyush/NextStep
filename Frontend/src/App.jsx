@@ -19,6 +19,7 @@ import NewAccount from "./Pages/NewAccount";
 import NextAI from "./Pages/NextAI";
 import { UserContext } from "./Contexts/UserContext";
 import Onboarding from "./Pages/Onboarding";
+import PricingPage from "./Pages/PricingPage";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = React.useContext(UserContext);
@@ -68,8 +69,8 @@ function App() {
           element: <>Communities</>,
         },
         {
-          path: "newJot",
-          element: <>New Jots</>,
+          path: "pricing",
+          element: <PricingPage />,
         },
         {
           path: "/u/:uid",

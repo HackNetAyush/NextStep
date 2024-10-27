@@ -35,6 +35,7 @@ const NewAccount = () => {
   async function handleSignup() {
     toast.dismiss();
     setLoginbtnState(0);
+
     const res = await axios.post(`${serverUrl}/api/v1/auth/signup`, {
       name: name,
       email: email,
@@ -57,6 +58,7 @@ const NewAccount = () => {
       toast.error("some error occured");
       console.log(data.error);
     }
+
   }
 
   return (
@@ -88,13 +90,7 @@ const NewAccount = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        {/* <Input
-          className="w-full"
-          type="text"
-          label="Username (Unique)"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        /> */}
+
         <Input
           className="w-full"
           type="email"

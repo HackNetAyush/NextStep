@@ -10,6 +10,7 @@ import jwt from "jsonwebtoken";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+
 export default function Onboarding() {
   const [currentSection, setCurrentSection] = useState(0);
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ export default function Onboarding() {
     bio: null,
     proudmoment: null,
   });
+
+  const email = "test@test.com";
+  const serverURL = "http://localhost:3000/api/v1/welcome";
 
   const sections = [
     {
@@ -80,6 +84,7 @@ export default function Onboarding() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const token = await localStorage.getItem("token");
     const decode = await jwt.decode(token);
     formData.email = decode.email;
@@ -120,7 +125,7 @@ export default function Onboarding() {
           </div>
         </CardHeader>
         <CardBody>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="space-y-4">
               {sections[currentSection].fields.map((field) => (
                 <div key={field.name} className="space-y-2">
@@ -168,7 +173,9 @@ export default function Onboarding() {
                   Back
                 </Button>
                 {currentSection === sections.length - 1 ? (
+
                   <Button color="primary" onClick={handleSubmit}>
+
                     Submit
                   </Button>
                 ) : (
