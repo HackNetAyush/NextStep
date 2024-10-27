@@ -17,7 +17,7 @@ const NewAccount = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginbtnState, setLoginbtnState] = useState(1);
-  const serverUrl = "https://nqnj938h-3000.inc1.devtunnels.ms";
+  const serverUrl = "http://localhost:3000";
 
   //   const dmc = useContext(DarkModeContext);
   //   var isDarkMode = dmc.DarkMode;
@@ -40,10 +40,9 @@ const NewAccount = () => {
     toast
       .promise(
         axios.post(
-          `${serverUrl}/api/auth/createNewUser`,
+          `${serverUrl}/api/v1/auth/signup`,
           {
             name: name,
-
             email,
             password,
           },
@@ -98,13 +97,7 @@ const NewAccount = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        {/* <Input
-          className="w-full"
-          type="text"
-          label="Username (Unique)"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        /> */}
+
         <Input
           className="w-full"
           type="email"

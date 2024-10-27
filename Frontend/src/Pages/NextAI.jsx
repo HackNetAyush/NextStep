@@ -4,43 +4,41 @@ import { Input, Button } from "@nextui-org/react";
 import { MailIcon, Bolt } from "lucide-react";
 import { FaBolt } from "react-icons/fa6";
 import { IoSend } from "react-icons/io5";
+import Markdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
+// import "./AI.css";
 
 const NextAI = () => {
   const [messages, setMessages] = useState([
-    { text: "Hello there!", type: "received" },
+    { text: "Hey there!", type: "received" },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [typing, setTyping] = useState(false);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
-
-  // const handleSendMessage = () => {
-  //   if (inputValue.trim()) {
-  //     // Add a new message as 'sent'
-  //     setMessages((prevMessages) => [
-  //       ...prevMessages,
-  //       { text: inputValue, type: "sent" },
-  //     ]);
-  //     setInputValue(""); // Clear the input field
-  //   }
-  // };
 
   const handleSendMessage = async () => {
     if (inputValue.trim()) {
       // Add the sent message to the state
       const userMessage = { text: inputValue, type: "sent" };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
+      setTyping(true);
 
       // Send message to Gemini API
       try {
-        const response = await fetch("http://localhost:3000/sendReqToGemini", {
+        const response = await fetch("http://localhost:3005/sendReqToGemini", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             // Add any other necessary headers (like authentication) here
           },
-          body: JSON.stringify({ q: inputValue }), // Adjust based on your API requirements
+          body: JSON.stringify({
+            q: inputValue,
+            token:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6I…DkyfQ.JTKAAvb744sTOChEqFLbqHp3LpXMjwqosYNcZwR8St4",
+          }), // Adjust based on your API requirements
         });
 
         if (!response.ok) {
@@ -48,6 +46,7 @@ const NextAI = () => {
         }
 
         const data = await response.json();
+        setTyping(false);
 
         // Assuming the API returns a text response
         const receivedMessage = { text: data.answer, type: "received" };
@@ -95,10 +94,48 @@ const NextAI = () => {
                       : "float-start p-2 rounded-lg rounded-bl-[0] "
                   } `}
                 >
-                  {msg.text}
+                  {msg.type === "received" ? (
+                    <Markdown
+                      remarkPlugins={[remarkBreaks]}
+                      components={{
+                        h1: ({ children }) => (
+                          <h1 className="text-4xl font-extrabold mb-6">
+                            {children}
+                          </h1>
+                        ),
+                        h2: ({ children }) => (
+                          <h2 className="text-3xl font-bold mb-5">
+                            {children}
+                          </h2>
+                        ),
+                        h3: ({ children }) => (
+                          <h3 className="text-2xl font-semibold mb-4">
+                            {children}
+                          </h3>
+                        ),
+
+                        // Add more components as needed
+                      }}
+                    >
+                      {msg.text}
+                    </Markdown>
+                  ) : (
+                    <span>{msg.text}</span> // Use <span> for consistency
+                  )}
                 </div>
               </div>
             ))}
+
+            <div className={`loading mt-3 ${typing ? "block" : "hidden"}`}>
+              <div className="typing-indicator">
+                <div className="typing-circle"></div>
+                <div className="typing-circle"></div>
+                <div className="typing-circle"></div>
+                <div className="typing-shadow"></div>
+                <div className="typing-shadow"></div>
+                <div className="typing-shadow"></div>
+              </div>
+            </div>
 
             {/* <div className="chat_wrapper h-fit w-full">
               <div className="chat ai bg-primary text-default-50  ">

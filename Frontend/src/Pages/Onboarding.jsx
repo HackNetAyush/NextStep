@@ -5,6 +5,7 @@ import { Input } from "@nextui-org/react";
 import { Card, CardHeader, CardBody } from "@nextui-org/react";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { Textarea } from "@nextui-org/react";
+import axios from "axios";
 
 export default function Onboarding() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -15,6 +16,9 @@ export default function Onboarding() {
     bio: "",
     proud: "",
   });
+
+  const email = "test@test.com";
+  const serverURL = "http://localhost:3000/api/v1/welcome";
 
   const sections = [
     {
@@ -73,9 +77,18 @@ export default function Onboarding() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+
+    // console.log("Form submitted:", formData);
+    try {
+      const response = await axios.post(serverURL, formData);
+      console.log("Response from server:", response.data);
+      // Optionally reset the form or redirect the user after successful submission
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+      // Handle error (e.g., show a notification)
+    }
     // Here you would typically send the data to your backend
   };
 
@@ -99,7 +112,7 @@ export default function Onboarding() {
           </div>
         </CardHeader>
         <CardBody>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="space-y-4">
               {sections[currentSection].fields.map((field) => (
                 <div key={field.name} className="space-y-2">
@@ -149,7 +162,7 @@ export default function Onboarding() {
                   Back
                 </Button>
                 {currentSection === sections.length - 1 ? (
-                  <Button color="primary" type="submit">
+                  <Button color="primary" type="submit" onClick={handleSubmit}>
                     Submit
                   </Button>
                 ) : (

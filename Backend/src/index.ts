@@ -4,7 +4,7 @@ import authRoutes from "./routes/authRoutes";
 import welcomeRoutes from "./routes/welcomeroutes";
 import dbconnect from "./utils/dbconnect";
 import dotenv from "dotenv";
-import cookieParser = require("cookie-parser");
+// import cookieParser = require("cookie-parser");
 
 dotenv.config();
 
@@ -12,14 +12,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(cookieParser());
-
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.set("trust proxy", 1);
 
