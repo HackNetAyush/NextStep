@@ -3,6 +3,8 @@ import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Progress } from "@nextui-org/progress";
 import { Button, Badge, Chip } from "@nextui-org/react";
 import { checker } from "./../assets/checker";
+import jwt from "jsonwebtoken";
+import axios from "axios";
 import {
   Bell,
   BookOpen,
@@ -20,12 +22,25 @@ const Dashboardd = () => {
 
   const [name, Setname] = useState(" ");
 
+  async function fetch() {
+    const token = await localStorage.getItem("token");
+    const decode = await jwt.decode(token);
+    const email = decode.email;
+    console.log(email);
+    const res = await axios.post("http://localhost:3000/", { email: email });
+    Setname(res.data.user.name);
+  }
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <div className="main h-full w-full flex flex-col items-center justify-center">
       <main className="flex  flex-col overflow-x-hidden overflow-y-auto p-5">
         {/* Welcome Section */}
         <section className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Welcome back, {name}!</h2>
+          <h2 className="text-3xl font-bold mb-2">Welcome, {name}!</h2>
           <p className="text-gray-600">
             You're a creative problem-solver with strong analytical skills. Your
             passion for technology and design makes you an excellent candidate
