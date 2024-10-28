@@ -13,12 +13,23 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/avatar";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const progress = 0;
-  // useEffect(() => {
-  //   checker();
-  // }, []);
+  async function check() {
+    const token = localStorage.getItem("token") || "a";
+    const res = await axios.post("http://localhost:3000/check/", {
+      token: token,
+    });
+    if (res.data.msg == "false") {
+      navigate("/signup");
+    }
+  }
+  useEffect(() => {
+    check();
+  }, []);
 
   const [name, Setname] = useState(" ");
 
