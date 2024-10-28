@@ -10,16 +10,15 @@ import jwt from "jsonwebtoken";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-
 export default function Onboarding() {
   const [currentSection, setCurrentSection] = useState(0);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    age: null,
-    gender: null,
-    location: null,
-    bio: null,
-    proudmoment: null,
+    age: "",
+    gender: "",
+    location: "",
+    bio: "",
+    proudmoment: "",
   });
 
   const email = "test@test.com";
@@ -29,7 +28,7 @@ export default function Onboarding() {
     {
       title: "User Information",
       fields: [
-        { name: "age", label: "Age", type: "number", inputType: "input" },
+        { name: "age", label: "Age", type: "text", inputType: "input" },
         { name: "gender", label: "Gender", type: "text", inputType: "input" },
         {
           name: "location",
@@ -173,9 +172,7 @@ export default function Onboarding() {
                   Back
                 </Button>
                 {currentSection === sections.length - 1 ? (
-
                   <Button color="primary" onClick={handleSubmit}>
-
                     Submit
                   </Button>
                 ) : (

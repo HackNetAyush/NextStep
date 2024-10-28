@@ -14,17 +14,16 @@ const Login = () => {
   const [loginbtnState, setLoginbtnState] = useState(1);
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const serverUrl = "https://vibe-backend-7grj.onrender.com";
-  // const serverUrl = "http://192.168.137.1:3000";
+
   const serverUrl = "http://localhost:3000";
 
   const navigate = useNavigate();
   const handleGoBack = () => {
-    navigate(-1); // -1 will navigate to the previous page in the history stack
+    navigate(-1);
   };
 
   const gotoSignup = () => {
-    navigate("/signup"); // -1 will navigate to the previous page in the history stack
+    navigate("/signup");
   };
 
   const userContext = useContext(UserContext);

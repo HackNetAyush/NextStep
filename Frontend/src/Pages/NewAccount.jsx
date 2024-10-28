@@ -52,13 +52,12 @@ const NewAccount = () => {
     if (data.msg == "user created") {
       toast.success("user created");
       localStorage.setItem("token", data.jwt);
-      navigate("/");
+      navigate("/onboarding");
     }
     if (data.msg == "error") {
       toast.error("some error occured");
       console.log(data.error);
     }
-
   }
 
   return (
