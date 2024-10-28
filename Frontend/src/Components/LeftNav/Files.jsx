@@ -138,51 +138,6 @@ const Files = () => {
               )}
             </div>
           </ListboxItem>
-
-          {/* <ListboxItem
-            key="f2"
-            className={
-              activeTab === "f2"
-                ? "bg-[#eaeae9] text-black"
-                : "bg-transparent text-[#71717a]"
-            }
-            startContent={<FiFileText className={iconClasses} />}
-            onClick={() => {
-              selectionChange("f2");
-            }}
-          >
-            Edit file
-          </ListboxItem>
-
-          <ListboxItem
-            key="f3"
-            className={
-              activeTab === "f3"
-                ? "bg-[#eaeae9] text-black"
-                : "bg-transparent text-[#71717a]"
-            }
-            startContent={<FiFileText className={iconClasses} />}
-            onClick={() => {
-              selectionChange("f3");
-            }}
-          >
-            Edit file
-          </ListboxItem>
-
-          <ListboxItem
-            key="f4"
-            className={
-              activeTab === "f4"
-                ? "bg-[#eaeae9] text-black"
-                : "bg-transparent text-[#71717a]"
-            }
-            startContent={<FiFileText className={iconClasses} />}
-            onClick={() => {
-              selectionChange("f4");
-            }}
-          >
-            Edit file
-          </ListboxItem> */}
         </ListboxSection>
       </Listbox>
     </div>

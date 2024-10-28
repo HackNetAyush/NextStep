@@ -25,10 +25,12 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1", welcomeRoutes);
 app.use("/api/v1/", geminiRoutes);
 
-app.get("/", async (req, res) => {
+//@ts-ignore
+app.post("/", async (req, res) => {
   const body = req.body;
   const user = await UserModel.findOne({ email: body.email });
-  res.json({
+  return res.json({
+    //@ts-ignore
     user: user,
   });
 });

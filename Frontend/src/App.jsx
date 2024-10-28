@@ -13,7 +13,6 @@ import {
 } from "react-router-dom";
 import MainAppLayout from "./Layouts/MainAppLayout";
 import Dashboard from "./Pages/Dashboard";
-import Dashboardd from "./Pages/Dashboardd";
 import Login from "./Pages/Login";
 import NewAccount from "./Pages/NewAccount";
 import NextAI from "./Pages/NextAI";
@@ -54,11 +53,7 @@ function App() {
       children: [
         {
           index: true,
-          element: (
-            // <ProtectedRoute>
-            <Dashboardd />
-            // </ProtectedRoute>
-          ),
+          element: <Dashboard />,
         },
         {
           path: "nextai",

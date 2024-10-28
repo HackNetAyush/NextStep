@@ -82,11 +82,6 @@ const Files = () => {
             <ListboxItem
               textValue={item.key}
               key={item.key}
-              // className={
-              //   activeTab === item.key
-              //     ? "bg-[#eaeae9] text-black"
-              //     : "bg-transparent text-[#71717a]"
-              // }
               className={
                 activeTab === item.key
                   ? "bg-default-200 dark:bg-default-100"
@@ -102,36 +97,6 @@ const Files = () => {
             </ListboxItem>
           ))}
         </ListboxSection>
-
-        {/* <ListboxSection title="Files">
-          {items.slice(4).map((item) => (
-            <ListboxItem
-              textValue={item.key}
-              key={item.key}
-              className={
-                activeTab === item.key
-                  ? "bg-[#eaeae9] text-black"
-                  : "bg-transparent text-[#71717a]"
-              }
-              startContent={item.icon}
-              onMouseEnter={() => setHoverKey(item.key)}
-              onMouseLeave={() => setHoverKey("")}
-              onClick={() => {
-                selectionChange(item.key);
-                navTo(item.key);
-              }}
-            >
-              <div className="flex items-center justify-between">
-                <span className="flex items-center">{item.label}</span>
-                {(hoverKey === item.key || activeTab === item.key) && (
-                  <Button className="w-fit h-fit min-w-[2px] px-1 bg-[transparent] hover:bg-default rounded-md">
-                    <MdMoreHoriz size={20} />
-                  </Button>
-                )}
-              </div>
-            </ListboxItem>
-          ))}
-        </ListboxSection> */}
       </Listbox>
     </div>
   );
